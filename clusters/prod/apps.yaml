@@ -14,4 +14,4 @@ spec:
   path: ./apps/production
   prune: true
   wait: true
-  timeout: 5m0s
+  timeout: 1m0s
