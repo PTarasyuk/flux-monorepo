@@ -8,6 +8,14 @@ We will configure Flux to install, test and upgrade a demo app Podinfo using `He
 
 On each cluster, we will install [Weave GitOps](https://docs.gitops.weave.works/) (the OSS UI for Flux) to visualize and monitor the workloads managed by Flux.
 
+- [Prerequisites](#prerequisites)
+- [Repository structure](#repository-structure)
+  - [Applications](#applications)
+  - [Infrastructure](#infrastructure)
+- [Bootstrap staging and production](#bootstrap-staging-and-production)
+  - [Access the Flux UI](#access-the-flux-ui)
+- [Add clusters](#add-clusters)
+
 ## Prerequisites
 
 You will need a Kubernetes cluster version 1.21 or newer.
