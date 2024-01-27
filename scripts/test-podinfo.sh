@@ -3,8 +3,10 @@
 clusters_path="$(readlink -f "$0" | awk -F'scripts/test-podinfo.sh' '{print $1}')"
 clusters=$(ls "${clusters_path}clusters/" | xargs -n 1 basename | tr '\n' ' ')
 for cluster in ${clusters}; do
+    echo "-------------------------------------------"
+    echo "Cluster: ${cluster}"
     context="kind-${cluster}"
-    kubectl --context="$context" -n ingress-nginx port-forward svc/ingress-nginx-controller 8080:80 > /dev/null 2>&1 &
+    kubectl --context="$context" -n ingress-nginx port-forward svc/ingress-nginx-controller 8080:80 > /dev/null &
     pid=$!
     timeout=2
     elapsed_time=0
@@ -19,10 +21,9 @@ for cluster in ${clusters}; do
     done
 
     if [ $is_ok ]; then
-        # DO
-        echo "Команда успішно запущена. Ваші інші дії тут."
+        curl -H "Host: podinfo.${cluster}" http://localhost:8080
     else
-        echo "Не вдалося запустити команду протягом $timeout секунд."
+        echo "Timeout error."
     fi
     if ps -p $pid > /dev/null; then
         kill $pid > /dev/null 2>&1
