@@ -8,16 +8,16 @@ for cluster in ${clusters}; do
     context="kind-${cluster}"
     kubectl --context="$context" -n ingress-nginx port-forward svc/ingress-nginx-controller 8080:80 > /dev/null &
     pid=$!
-    timeout=2
+    attempts=3
     elapsed_time=0
     is_ok=false
-    while [ $elapsed_time -lt $timeout ]; do
+    while [ $elapsed_time -lt $attempts ]; do
         if nc -z localhost 8080 2>/dev/null; then
             is_ok=true
             break
         fi
-        sleep 1
-        ((elapsed_time++))
+        sleep 5
+        ((elapsed_attempts++))
     done
 
     if [ $is_ok ]; then
