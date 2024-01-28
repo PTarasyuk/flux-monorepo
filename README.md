@@ -30,6 +30,8 @@ brew install fluxcd/tap/flux
 
 ## Repository structure
 
+![Repository structure](./assets/structure.png)
+
 The Git repository contains the following top directories:
 
 - `apps` dir contains Helm releases with a custom configuration per cluster
@@ -148,3 +150,13 @@ To configure OIDC with Dex and GitHub please see this [guide](https://docs.gitop
 ## Add clusters
 
 **Not working yet!** If you want to add a cluster to your fleet, execute `make add-cluster`.
+
+## Version management of the PodInfo app
+
+- [Flux for Helm Users](https://fluxcd.io/flux/use-cases/helm/)
+- [Manage Helm Releases](https://fluxcd.io/flux/guides/helmreleases/)
+- [Promote Flux Helm Releases with GitHub Actions](https://fluxcd.io/flux/use-cases/gh-actions-helm-promotion/)
+
+```sh
+flux diff artifact oci://ghcr.io/stefanprodan/manifests:podinfo:6.2.0 --path=./kustomize
+```
